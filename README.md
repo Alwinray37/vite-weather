@@ -1,3 +1,7 @@
+# Weather App 
+Api practice with REACT+VITE app. Integrated with OpenWeatherMap.org 
+ 
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
