@@ -1,11 +1,11 @@
-import './Header.module.css'
+import styles from './Header.module.css'
 
 export default function Header() {
     return (
         <header>
             <h1>Weather App</h1>
             <nav>
-                <button>Portfolio</button>
+                <button onClick={() => window.open('https://alwinray37.github.io/WebDev/', '_blank')}>Portfolio</button>
             </nav>
         </header>
     )

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './components/header/Header'
 
@@ -12,17 +10,43 @@ const api = {
 function App() {
     const [search, setSearch] = useState("");
     const [weather, setWeather] = useState({});
+    const [loading, setLoading] = useState(false);
 
     function searchPressed(){
         fetch(`${api.base}weather?q=${search}&units=imperial&APPID=${api.key}`)
-        .then(res => res.json())
+        .then(res => {
+            if(!res.ok){
+                throw Error('City not found');
+            }
+            return res.json();
+        })
         .then(result => {
             console.log(result);
             setWeather(result);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setWeather({ error: 'City not found' });
+            setLoading(false);
         });
     }
 
+    // default city
+    // useEffect(() => {
+    //     setSearch('Los Angeles'); // Default city
+    //     searchPressed();
+    // }, []);
+
     function outputWeather(){
+        if (loading) {
+            return <p>Loading...</p>;
+        }
+
+        if (weather.error) {
+            return <p>{weather.error}</p>;
+        }
+
         return (
             <>
             <p>{weather.name}</p>
